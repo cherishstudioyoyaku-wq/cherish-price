@@ -3,39 +3,71 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>料金確認　Cherish Studio </title>
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='28' fill='%23F4C542' stroke='%23B8860B' stroke-width='4'/%3E%3Ccircle cx='32' cy='32' r='21' fill='%23FFD95A' stroke='%23D4A017' stroke-width='2'/%3E%3Ctext x='32' y='42' text-anchor='middle' font-size='30' font-family='Arial,sans-serif' font-weight='700' fill='%23805B00'%3E%C2%A5%3C/text%3E%3C/svg%3E"> 
+
+<title>料金確認　Cherish Studio</title>
+
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='28' fill='%23F4C542' stroke='%23B8860B' stroke-width='4'/%3E%3Ccircle cx='32' cy='32' r='21' fill='%23FFD95A' stroke='%23D4A017' stroke-width='2'/%3E%3Ctext x='32' y='42' text-anchor='middle' font-size='30' font-family='Arial,sans-serif' font-weight='700' fill='%23805B00'%3E%C2%A5%3C/text%3E%3C/svg%3E">
+
 <style>
-*{box-sizing:border-box}
-html,body{height:100%;margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans JP",sans-serif;background:#f5f5f5;color:#222}
-body{display:flex;flex-direction:column;overflow:hidden}
-header{flex:0 0 auto;background:#fff;border-bottom:1px solid #ddd;padding:7px 10px;box-shadow:0 1px 4px rgba(0,0,0,.08);z-index:10}
-.top{display:flex;align-items:center;gap:10px;margin-bottom:6px}
-h1{font-size:14px;margin:0;white-space:nowrap}
-#status{font-size:11px;color:#666;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.menu{display:flex;flex-wrap:wrap;gap:4px}
-button{border:1px solid #bbb;background:#fafafa;border-radius:4px;padding:4px 8px;font-size:12px;line-height:1.2;cursor:pointer}
-button:hover{background:#eee}
-button.active{background:#333;color:#fff;border-color:#333}
-#external{margin-left:auto;font-size:11px}
-main{flex:1;min-height:0;position:relative}
-iframe{width:100%;height:100%;border:0;background:#fff}
-#fallback{display:none;position:absolute;inset:0;align-items:center;justify-content:center;background:#fff;text-align:center;padding:30px}
-#fallback div{max-width:560px}
-#fallback a{display:inline-block;margin-top:10px;padding:8px 12px;border:1px solid #aaa;border-radius:5px;color:#222;text-decoration:none}
-.mobile-select{display:none}
-@media (max-width: 700px){
-  header{padding:6px 8px}
-  .top{gap:6px;margin-bottom:5px}
-  h1{font-size:13px}
-  #status{display:none}
-  #external{font-size:10px;padding:4px 6px}
-  .menu{display:none}
-  .mobile-select{display:flex;align-items:center;gap:6px}
-  .mobile-select label{font-size:11px;color:#666;white-space:nowrap}
-  #studioSelect{flex:1;min-width:0;border:1px solid #bbb;border-radius:5px;background:#fff;padding:7px 8px;font-size:14px}
+*{
+  box-sizing:border-box;
 }
-  #currentUrl{
+
+html,body{
+  height:100%;
+  margin:0;
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans JP",sans-serif;
+  background:#f5f5f5;
+  color:#222;
+}
+
+body{
+  display:flex;
+  flex-direction:column;
+  overflow:hidden;
+}
+
+header{
+  flex:0 0 auto;
+  background:#fff;
+  border-bottom:1px solid #ddd;
+  padding:7px 10px;
+  box-shadow:0 1px 4px rgba(0,0,0,.08);
+  z-index:10;
+}
+
+.top{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  margin-bottom:6px;
+}
+
+h1{
+  font-size:14px;
+  margin:0;
+  white-space:nowrap;
+}
+
+#status{
+  font-size:11px;
+  color:#666;
+  white-space:nowrap;
+}
+
+/* 現在のURL */
+.url-area{
+  display:flex;
+  align-items:center;
+  gap:5px;
+  flex:1;
+  min-width:0;
+  font-size:11px;
+  color:#666;
+  white-space:nowrap;
+}
+
+#currentUrl{
   flex:1;
   min-width:180px;
   max-width:500px;
@@ -47,42 +79,223 @@ iframe{width:100%;height:100%;border:0;background:#fff}
   color:#555;
 }
 
+/* スタジオボタン */
+.menu{
+  display:flex;
+  flex-wrap:wrap;
+  gap:4px;
+}
+
+button{
+  border:1px solid #bbb;
+  background:#fafafa;
+  border-radius:4px;
+  padding:4px 8px;
+  font-size:12px;
+  line-height:1.2;
+  cursor:pointer;
+}
+
+button:hover{
+  background:#eee;
+}
+
+button.active{
+  background:#333;
+  color:#fff;
+  border-color:#333;
+}
+
+#external{
+  margin-left:auto;
+  font-size:11px;
+  white-space:nowrap;
+}
+
+main{
+  flex:1;
+  min-height:0;
+  position:relative;
+}
+
+iframe{
+  width:100%;
+  height:100%;
+  border:0;
+  background:#fff;
+}
+
+#fallback{
+  display:none;
+  position:absolute;
+  inset:0;
+  align-items:center;
+  justify-content:center;
+  background:#fff;
+  text-align:center;
+  padding:30px;
+}
+
+#fallback div{
+  max-width:560px;
+}
+
+#fallback a{
+  display:inline-block;
+  margin-top:10px;
+  padding:8px 12px;
+  border:1px solid #aaa;
+  border-radius:5px;
+  color:#222;
+  text-decoration:none;
+}
+
+.mobile-select{
+  display:none;
+}
+
+/* スマホ */
 @media (max-width:700px){
-  #currentUrl{display:none;}
+
+  header{
+    padding:6px 8px;
+  }
+
+  .top{
+    gap:6px;
+    margin-bottom:5px;
+  }
+
+  h1{
+    font-size:13px;
+  }
+
+  #status{
+    display:none;
+  }
+
+  /* スマホでは現在URLを非表示 */
+  .url-area{
+    display:none;
+  }
+
+  #external{
+    font-size:10px;
+    padding:4px 6px;
+  }
+
+  .menu{
+    display:none;
+  }
+
+  .mobile-select{
+    display:flex;
+    align-items:center;
+    gap:6px;
+  }
+
+  .mobile-select label{
+    font-size:11px;
+    color:#666;
+    white-space:nowrap;
+  }
+
+  #studioSelect{
+    flex:1;
+    min-width:0;
+    border:1px solid #bbb;
+    border-radius:5px;
+    background:#fff;
+    padding:7px 8px;
+    font-size:14px;
+  }
 }
 </style>
 </head>
+
 <body>
+
 <header>
+
   <div class="top">
+
     <h1>Cherish Studio｜料金確認</h1>
+
     <span id="status">01st を表示中</span>
-    <input id="currentUrl" type="text" readonly aria-label="現在のURL">
-    <button id="external" type="button">現在ページを通常表示</button>
+
+    <div class="url-area">
+      <span>現在のURL</span>
+      <input
+        id="currentUrl"
+        type="text"
+        readonly
+        aria-label="現在のURL"
+        onclick="this.select()"
+      >
+    </div>
+
+    <button id="external" type="button">
+      現在ページを通常表示
+    </button>
+
   </div>
+
   <nav class="menu" id="menu"></nav>
+
   <div class="mobile-select">
     <label for="studioSelect">スタジオ</label>
     <select id="studioSelect" aria-label="スタジオを選択"></select>
   </div>
+
 </header>
+
 <main>
-  <iframe id="viewer" name="viewer" title="料金ページ"></iframe>
-  <div id="fallback"><div>
-    <strong>ページをこの画面内に表示できない場合があります。</strong><br>
-    その場合は「現在ページを通常表示」を押してください。
-    <br><a id="fallbackLink" href="#">現在の料金ページを開く</a>
-  </div></div>
+
+  <iframe
+    id="viewer"
+    name="viewer"
+    title="料金ページ">
+  </iframe>
+
+  <div id="fallback">
+    <div>
+      <strong>ページをこの画面内に表示できない場合があります。</strong>
+      <br>
+      その場合は「現在ページを通常表示」を押してください。
+      <br>
+      <a id="fallbackLink" href="#">
+        現在の料金ページを開く
+      </a>
+    </div>
+  </div>
+
 </main>
+
 <script>
+
+/* スタジオ一覧 */
 const studios=[
- ["01st","01st"],["02st","02st"],["03st","03st"],["04st","04st"],
- ["05st","05st"],["06st","06st"],["07st","07st"],["08st","08st"],
- ["09st","09st"],["10st","10st"],["11st","11st"],["12st","12st"],
- ["13st","13st"],["14st","14st"],["ラボ","labo"],["ルーム","room01st"],
- ["新天地","shintenchi"]
+  ["01st","01st"],
+  ["02st","02st"],
+  ["03st","03st"],
+  ["04st","04st"],
+  ["05st","05st"],
+  ["06st","06st"],
+  ["07st","07st"],
+  ["08st","08st"],
+  ["09st","09st"],
+  ["10st","10st"],
+  ["11st","11st"],
+  ["12st","12st"],
+  ["13st","13st"],
+  ["14st","14st"],
+  ["ラボ","labo"],
+  ["ルーム","room01st"],
+  ["新天地","shintenchi"]
 ];
+
 const base="https://cherish-studio.com/";
+
 const menu=document.getElementById("menu");
 const viewer=document.getElementById("viewer");
 const status=document.getElementById("status");
@@ -90,36 +303,97 @@ const currentUrlBox=document.getElementById("currentUrl");
 const ext=document.getElementById("external");
 const fallbackLink=document.getElementById("fallbackLink");
 const studioSelect=document.getElementById("studioSelect");
+
 let currentUrl="";
+
+/* スタジオを表示 */
 function load(label,slug,btn){
- currentUrl=base+slug+"/price/";
-viewer.src=currentUrl;
-status.textContent=label+" を表示中";
-currentUrlBox.value=currentUrl;
- fallbackLink.href=currentUrl;
- document.querySelectorAll("#menu button").forEach(b=>b.classList.remove("active"));
- btn.classList.add("active");
- studioSelect.value=slug;
+
+  currentUrl=base+slug+"/price/";
+
+  viewer.src=currentUrl;
+
+  status.textContent=label+" を表示中";
+
+  /* URL欄も切り替える */
+  currentUrlBox.value=currentUrl;
+
+  fallbackLink.href=currentUrl;
+
+  document
+    .querySelectorAll("#menu button")
+    .forEach(b=>b.classList.remove("active"));
+
+  if(btn){
+    btn.classList.add("active");
+  }
+
+  studioSelect.value=slug;
 }
+
+/* PC用ボタン・スマホ用選択肢を作成 */
 studios.forEach(([label,slug],i)=>{
- const b=document.createElement("button");
- b.type="button"; b.textContent=label;
- b.onclick=()=>load(label,slug,b);
- menu.appendChild(b);
- const opt=document.createElement("option");
- opt.value=slug; opt.textContent=label;
- studioSelect.appendChild(opt);
- if(i===0) setTimeout(()=>load(label,slug,b),0);
+
+  const b=document.createElement("button");
+
+  b.type="button";
+  b.textContent=label;
+
+  b.onclick=()=>{
+    load(label,slug,b);
+  };
+
+  menu.appendChild(b);
+
+  const opt=document.createElement("option");
+
+  opt.value=slug;
+  opt.textContent=label;
+
+  studioSelect.appendChild(opt);
+
+  /* 最初は01st */
+  if(i===0){
+    setTimeout(()=>{
+      load(label,slug,b);
+    },0);
+  }
 });
+
+/* スマホのスタジオ選択 */
 studioSelect.onchange=()=>{
- const found=studios.find(([label,slug])=>slug===studioSelect.value);
- if(!found) return;
- const [label,slug]=found;
- const buttons=[...document.querySelectorAll("#menu button")];
- const index=studios.findIndex(([,s])=>s===slug);
- load(label,slug,buttons[index]);
+
+  const found=studios.find(
+    ([label,slug])=>slug===studioSelect.value
+  );
+
+  if(!found){
+    return;
+  }
+
+  const [label,slug]=found;
+
+  const buttons=[
+    ...document.querySelectorAll("#menu button")
+  ];
+
+  const index=studios.findIndex(
+    ([,s])=>s===slug
+  );
+
+  load(label,slug,buttons[index]);
 };
-ext.onclick=()=>{ if(currentUrl) window.location.href=currentUrl; };
+
+/* 通常表示 */
+ext.onclick=()=>{
+
+  if(currentUrl){
+    window.location.href=currentUrl;
+  }
+
+};
+
 </script>
+
 </body>
 </html>
