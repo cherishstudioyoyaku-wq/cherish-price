@@ -9,9 +9,7 @@
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='28' fill='%23F4C542' stroke='%23B8860B' stroke-width='4'/%3E%3Ccircle cx='32' cy='32' r='21' fill='%23FFD95A' stroke='%23D4A017' stroke-width='2'/%3E%3Ctext x='32' y='42' text-anchor='middle' font-size='30' font-family='Arial,sans-serif' font-weight='700' fill='%23805B00'%3E%C2%A5%3C/text%3E%3C/svg%3E">
 
 <style>
-*{
-  box-sizing:border-box;
-}
+*{box-sizing:border-box}
 
 html,body{
   height:100%;
@@ -52,34 +50,11 @@ h1{
 #status{
   font-size:11px;
   color:#666;
+  overflow:hidden;
+  text-overflow:ellipsis;
   white-space:nowrap;
 }
 
-/* 現在のURL */
-.url-area{
-  display:flex;
-  align-items:center;
-  gap:5px;
-  flex:1;
-  min-width:0;
-  font-size:11px;
-  color:#666;
-  white-space:nowrap;
-}
-
-#currentUrl{
-  flex:1;
-  min-width:180px;
-  max-width:500px;
-  padding:4px 7px;
-  border:1px solid #ccc;
-  border-radius:4px;
-  background:#fff;
-  font-size:11px;
-  color:#555;
-}
-
-/* スタジオボタン */
 .menu{
   display:flex;
   flex-wrap:wrap;
@@ -109,7 +84,6 @@ button.active{
 #external{
   margin-left:auto;
   font-size:11px;
-  white-space:nowrap;
 }
 
 main{
@@ -174,11 +148,6 @@ iframe{
     display:none;
   }
 
-  /* スマホでは現在URLを非表示 */
-  .url-area{
-    display:none;
-  }
-
   #external{
     font-size:10px;
     padding:4px 6px;
@@ -218,26 +187,9 @@ iframe{
 <header>
 
   <div class="top">
-
     <h1>Cherish Studio｜料金確認</h1>
-
     <span id="status">01st を表示中</span>
-
-    <div class="url-area">
-      <span>現在のURL</span>
-      <input
-        id="currentUrl"
-        type="text"
-        readonly
-        aria-label="現在のURL"
-        onclick="this.select()"
-      >
-    </div>
-
-    <button id="external" type="button">
-      現在ページを通常表示
-    </button>
-
+    <button id="external" type="button">現在ページを通常表示</button>
   </div>
 
   <nav class="menu" id="menu"></nav>
@@ -259,13 +211,10 @@ iframe{
 
   <div id="fallback">
     <div>
-      <strong>ページをこの画面内に表示できない場合があります。</strong>
-      <br>
+      <strong>ページをこの画面内に表示できない場合があります。</strong><br>
       その場合は「現在ページを通常表示」を押してください。
       <br>
-      <a id="fallbackLink" href="#">
-        現在の料金ページを開く
-      </a>
+      <a id="fallbackLink" href="#">現在の料金ページを開く</a>
     </div>
   </div>
 
@@ -273,7 +222,6 @@ iframe{
 
 <script>
 
-/* スタジオ一覧 */
 const studios=[
   ["01st","01st"],
   ["02st","02st"],
@@ -299,14 +247,12 @@ const base="https://cherish-studio.com/";
 const menu=document.getElementById("menu");
 const viewer=document.getElementById("viewer");
 const status=document.getElementById("status");
-const currentUrlBox=document.getElementById("currentUrl");
 const ext=document.getElementById("external");
 const fallbackLink=document.getElementById("fallbackLink");
 const studioSelect=document.getElementById("studioSelect");
 
 let currentUrl="";
 
-/* スタジオを表示 */
 function load(label,slug,btn){
 
   currentUrl=base+slug+"/price/";
@@ -314,9 +260,6 @@ function load(label,slug,btn){
   viewer.src=currentUrl;
 
   status.textContent=label+" を表示中";
-
-  /* URL欄も切り替える */
-  currentUrlBox.value=currentUrl;
 
   fallbackLink.href=currentUrl;
 
@@ -331,7 +274,6 @@ function load(label,slug,btn){
   studioSelect.value=slug;
 }
 
-/* PC用ボタン・スマホ用選択肢を作成 */
 studios.forEach(([label,slug],i)=>{
 
   const b=document.createElement("button");
@@ -352,7 +294,6 @@ studios.forEach(([label,slug],i)=>{
 
   studioSelect.appendChild(opt);
 
-  /* 最初は01st */
   if(i===0){
     setTimeout(()=>{
       load(label,slug,b);
@@ -360,7 +301,6 @@ studios.forEach(([label,slug],i)=>{
   }
 });
 
-/* スマホのスタジオ選択 */
 studioSelect.onchange=()=>{
 
   const found=studios.find(
@@ -384,13 +324,10 @@ studioSelect.onchange=()=>{
   load(label,slug,buttons[index]);
 };
 
-/* 通常表示 */
 ext.onclick=()=>{
-
   if(currentUrl){
     window.location.href=currentUrl;
   }
-
 };
 
 </script>
